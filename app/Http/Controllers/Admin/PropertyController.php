@@ -40,7 +40,9 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
+          $property->load('leases.tenant'); 
+
+    return view('admin.properties.show', compact('property'));
     }
 
     /**

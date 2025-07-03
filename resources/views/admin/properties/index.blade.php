@@ -32,7 +32,7 @@
                         <td>
                             <img src="{{ $property->image ?? 'https://via.placeholder.com/80' }}" alt="property image" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
                         </td>
-                        <td>{{ $property->name }}</td>
+                        <td><a href="{{ route('admin.properties.show', $property->id) }}">{{ $property->name }}</a></td>
                         <td>{{ $property->address }}</td>
                         <td>Rs. {{ number_format($property->price_per_month) }}</td>
                         <td>
