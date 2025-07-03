@@ -8,59 +8,51 @@ use Illuminate\Http\Request;
 
 class TenantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $tenants = Tenant::latest()->paginate(10);
+        return view('admin.tenants.index', compact('tenants'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.tenants.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:tenants,email',
+            'phone_number' => 'required|string|max:20',
+        ]);
+
+        Tenant::create($validatedData);
+
+        return redirect()->route('admin.tenants.index')->with('success', 'Tenant created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tenant $tenant)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Tenant $tenant)
     {
-        //
+        return view('admin.tenants.edit', compact('tenant'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Tenant $tenant)
     {
-        //
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:tenants,email,' . $tenant->id,
+            'phone_number' => 'required|string|max:20',
+        ]);
+
+        $tenant->update($validatedData);
+
+        return redirect()->route('admin.tenants.index')->with('success', 'Tenant updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tenant $tenant)
     {
-        //
+        $tenant->delete();
+        return redirect()->route('admin.tenants.index')->with('success', 'Tenant deleted successfully.');
     }
 }
