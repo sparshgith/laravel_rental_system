@@ -8,7 +8,7 @@
 
 @section('content')
 <x-adminlte-card theme="primary" theme-mode="outline" title="Enter Property Details">
-    {{-- Make sure the form can handle file uploads --}}
+    {{-- Add enctype="multipart/form-data" for file uploads --}}
     <form action="{{ route('admin.properties.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -44,6 +44,7 @@
         </div>
 
         <div class="row">
+            {{-- This is the file input component --}}
             <x-adminlte-input-file name="main_image" label="Main Image" placeholder="Choose an image..."
                 fgroup-class="col-md-12" error-key="main_image" required/>
         </div>
