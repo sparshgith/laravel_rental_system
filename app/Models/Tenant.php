@@ -15,9 +15,9 @@ class Tenant extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'full_name',
         'email', // <-- Make sure this is present
-        'phone',
+        'phone_number',
         'address',
     ];
 

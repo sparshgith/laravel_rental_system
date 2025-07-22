@@ -7,30 +7,47 @@
 @stop
 
 @section('content')
-<x-adminlte-card theme="primary" theme-mode="outline" title="Property Details">
-    <form action="{{ route('admin.properties.store') }}" method="POST">
+<x-adminlte-card theme="primary" theme-mode="outline" title="Enter Property Details">
+    {{-- Make sure the form can handle file uploads --}}
+    <form action="{{ route('admin.properties.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="col-md-6">
-                <x-adminlte-input name="name" label="Property Name" placeholder="e.g., Sunnyvale Apartment" fgroup-class="col-md-12" required/>
-            </div>
-            <div class="col-md-6">
-                <x-adminlte-input name="address" label="Address" placeholder="e.g., 123 Main St, Anytown" fgroup-class="col-md-12" required/>
-            </div>
+            <x-adminlte-select name="property_type" label="Property Type" fgroup-class="col-md-6" error-key="property_type" required>
+                <option value="" disabled {{ old('property_type') ? '' : 'selected' }}>Select a type...</option>
+                <option value="Apartment" {{ old('property_type') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
+                <option value="House" {{ old('property_type') == 'House' ? 'selected' : '' }}>House</option>
+                <option value="Studio" {{ old('property_type') == 'Studio' ? 'selected' : '' }}>Studio</option>
+            </x-adminlte-select>
+
+            <x-adminlte-input name="location" label="Location / Neighborhood" placeholder="e.g., Nadipur"
+                fgroup-class="col-md-6" error-key="location" value="{{ old('location') }}" required/>
         </div>
+
         <div class="row">
-            <div class="col-md-12">
-                <x-adminlte-textarea name="description" label="Description" placeholder="Enter a brief description of the property..."/>
-            </div>
+             <x-adminlte-textarea name="address" label="Full Address" placeholder="Detailed address for the property"
+                error-key="address">{{ old('address') }}</x-adminlte-textarea>
         </div>
+
         <div class="row">
-            <div class="col-md-6">
-                <x-adminlte-input name="price_per_month" label="Price per Month (Rs.)" placeholder="e.g., 75000" type="number" fgroup-class="col-md-12" required/>
-            </div>
-            <div class="col-md-6">
-                <x-adminlte-input name="image" label="Image URL" placeholder="https://example.com/image.jpg" fgroup-class="col-md-12"/>
-            </div>
+            <x-adminlte-select name="furnish_status" label="Furnish Status" fgroup-class="col-md-4" error-key="furnish_status" required>
+                <option value="" disabled {{ old('furnish_status') ? '' : 'selected' }}>Select a status...</option>
+                <option value="Furnished" {{ old('furnish_status') == 'Furnished' ? 'selected' : '' }}>Furnished</option>
+                <option value="Semi-Furnished" {{ old('furnish_status') == 'Semi-Furnished' ? 'selected' : '' }}>Semi-Furnished</option>
+                <option value="Unfurnished" {{ old('furnish_status') == 'Unfurnished' ? 'selected' : '' }}>Unfurnished</option>
+            </x-adminlte-select>
+
+            <x-adminlte-input name="number_of_rooms" label="Number of Rooms" type="number"
+                fgroup-class="col-md-4" error-key="number_of_rooms" value="{{ old('number_of_rooms') }}" required/>
+
+            <x-adminlte-input name="monthly_rent" label="Monthly Rent (Rs.)" placeholder="e.g., 70000" type="number"
+                fgroup-class="col-md-4" error-key="monthly_rent" value="{{ old('monthly_rent') }}" required/>
         </div>
+
+        <div class="row">
+            <x-adminlte-input-file name="main_image" label="Main Image" placeholder="Choose an image..."
+                fgroup-class="col-md-12" error-key="main_image" required/>
+        </div>
+        
         <hr>
         <x-adminlte-button type="submit" label="Save Property" theme="primary" icon="fas fa-save"/>
         <a href="{{ route('admin.properties.index') }}" class="btn btn-secondary">Cancel</a>
