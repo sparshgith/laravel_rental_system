@@ -16,6 +16,22 @@
 </head>
 <body class="font-sans antialiased bg-gray-100">
 
+    <!-- Blue Navigation Bar -->
+    <nav class="bg-[#033c6b] p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto">
+            <a href="{{ url('/') }}" class="flex items-center text-white no-underline hover:opacity-90 transition-opacity">
+                <!-- SVG Logo -->
+                <svg class="h-8 w-8 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.0996094L1 12L4 12L4 21L11 21L11 15L13 15L13 21L20 21L20 12L23 12L12 2.0996094z"/>
+                </svg>
+                <!-- Text -->
+                <span class="font-semibold text-lg tracking-wider uppercase">RENTAL MANAGEMENT SYSTEM</span>
+            </a>
+        </div>
+    </nav>
+    <!-- END Blue Navigation Bar -->
+
+
     <!-- Hero Section with Background Image -->
     <div class="relative h-96 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070');">
         <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -28,7 +44,7 @@
         <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-lg -mt-16">
             <div class="flex items-center space-x-4 mb-4">
                 <button class="px-4 py-2 text-sm font-semibold border-b-2 border-yellow-500 text-gray-800">FOR RENT</button>
-                <button class="px-4 py-2 text-sm font-semibold text-gray-500 hover:border-b-2 hover:border-gray-300">FOR SALE</button>
+                
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input type="text" placeholder="Search by Location, Project Name" class="w-full col-span-1 md:col-span-2 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500">
